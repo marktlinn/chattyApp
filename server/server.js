@@ -23,6 +23,7 @@ io.on("connection", socket => {
     console.log(`user: ${socket.id} entered the room: ${roomId}`);
   });
   socket.on("send_message", message => {
+    socket.to(message.room).emit("message_received", message);
     console.log(message);
   });
   socket.on("disconnect", () => {

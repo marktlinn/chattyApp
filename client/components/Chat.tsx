@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
-  socket: any;
+  socket: Object;
   userName: String;
   roomName: String;
 };
 
 const Chat = ({ socket, userName, roomName }: Props) => {
   const [message, setMessage] = useState<string>("");
+
+  useEffect(() => {
+    socket.on("message_received", (data: object) => {
+      console.log(data);
+    });
+  }, [socket]);
 
   const sendMessage = async () => {
     if (message.length > 1) {
