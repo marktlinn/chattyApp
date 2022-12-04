@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 type Props = {
-  socket: Object;
+  socket: any;
   userName: String;
   roomName: String;
 };
