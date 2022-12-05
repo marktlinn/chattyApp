@@ -1,39 +1,41 @@
 import { useState } from "react";
 import * as io from "socket.io-client";
 import Chat from "../components/Chat";
+import JoinRoom from "../components/JoinRoom";
 
+import { Routes, Route, useNavigate } from "react-router-dom";
 const socket = io.connect("http://localhost:3000");
 function App() {
   const [userName, setUserName] = useState<string>("");
   const [roomName, setRoomName] = useState<string>("");
-
+  const Navigate = useNavigate();
   const joinRoom = () => {
     if (userName.length > 1 && roomName.length > 1) {
       socket.emit("join_room", roomName);
+      console.log(roomName);
+      Navigate(`/room${roomName}`);
     }
   };
   return (
     <div className="w-screen flex flex-col items-center justify-center gap-2 h-screen">
-      <h3 className="p-2">Join Chat</h3>
-      <input
-        className="p-2"
-        type="text"
-        placeholder="What's your name?"
-        onChange={e => {
-          setUserName(e.target.value);
-        }}
-      />
-      <input
-        className="p-2"
-        type="text"
-        placeholder="The name of the room..."
-        onChange={e => {
-          setRoomName(e.target.value);
-        }}
-      />
-      <button onClick={joinRoom}>Join Room</button>
-
-      <Chat socket={socket} userName={userName} roomName={roomName} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <JoinRoom
+              setUserName={setUserName}
+              setRoomName={setRoomName}
+              joinRoom={joinRoom}
+            />
+          }
+        />
+        <Route
+          path={`/room${roomName}`}
+          element={
+            <Chat socket={socket} userName={userName} roomName={roomName} />
+          }
+        />
+      </Routes>
     </div>
   );
 }

@@ -29,12 +29,11 @@ const Chat = ({ socket, userName, roomName }: Props) => {
     }
   };
   return (
-    <main className="">
+    <main>
       <header>Chat</header>
       <section></section>
-      <section>
+      <section className="flex gap-1">
         <input
-          className="py-2"
           type="text"
           placeholder="Type here..."
           onChange={e => {
