@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Message from "./Message";
 type Props = {
   socket: any;
   userName: String;
@@ -8,10 +8,12 @@ type Props = {
 
 const Chat = ({ socket, userName, roomName }: Props) => {
   const [message, setMessage] = useState<string>("");
-
+  const [output, setOutput] = useState<any[]>([]);
+  const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     socket.on("message_received", (data: object) => {
-      console.log(data);
+      console.log("data", data);
+      setOutput((prev: {}[]) => [...prev, data]);
     });
   }, [socket]);
 
@@ -25,13 +27,23 @@ const Chat = ({ socket, userName, roomName }: Props) => {
           Date.now()
         ).getMinutes()}`,
       };
+      if (currentUser === "") {
+        setCurrentUser(String(messageContent.author));
+      }
+      setOutput((prev: {}[]) => [...prev, messageContent]);
       await socket.emit("send_message", messageContent);
     }
   };
   return (
     <main>
       <header>Chat</header>
-      <section></section>
+      <br />
+      <section className="outputSection">
+        {output &&
+          output.map((msg, i) => (
+            <Message key={`key${i}`} props={msg} user={currentUser} />
+          ))}
+      </section>
       <section className="flex gap-1">
         <input
           type="text"

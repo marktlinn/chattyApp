@@ -61,7 +61,36 @@ button:focus-visible {
 input:focus {
   outline: 1px solid #646cff;
 }
-
+.message {
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+.mine {
+  background-color: #535bf2a1;
+}
+.other {
+  background-color: #57d34c95;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.author {
+  font-size: 0.9rem;
+  position: absolute;
+  top: 0.5rem;
+}
+.dm {
+  font-size: 1.4rem;
+}
+.date {
+  display: block;
+  font-size: 0.5rem;
+  position: absolute;
+  bottom: 0;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

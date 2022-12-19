@@ -11,7 +11,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "*",
   },
 });
 
@@ -24,7 +24,7 @@ io.on("connection", socket => {
   });
   socket.on("send_message", message => {
     socket.to(message.room).emit("message_received", message);
-    console.log(message);
+    console.log("message received: ", message);
   });
   socket.on("disconnect", () => {
     console.log(`user: ${socket.id} disconnected.`);
