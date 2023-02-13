@@ -68,8 +68,10 @@ select:focus {
   border-radius: 1rem;
   padding: 2rem 1rem;
   margin-bottom: 1.2rem;
+  display: flex;
   position: relative;
 }
+
 .mine {
   background-color: #535bf2;
 }

@@ -42,18 +42,18 @@ const Chat = ({ socket, userName, roomName }: Props) => {
   };
   return (
     <main>
-      <header>
+      <header className="text-center">
         Room <strong>{roomName && roomName}</strong>
       </header>
       <br />
-      <section className="outputSection">
+      <section className="flex flex-col gap-6">
         {output &&
           output.map((msg, i) => (
             <Message key={`key${i}`} props={msg} username={userName} />
           ))}
       </section>
       <form
-        className="flex gap-1"
+        className="flex items-center gap-1 mt-[3rem]"
         onSubmit={e => {
           sendMessage(e);
         }}
