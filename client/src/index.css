@@ -71,10 +71,38 @@ select:focus {
   position: relative;
 }
 .mine {
-  background-color: #535bf2a1;
+  background-color: #535bf2;
+}
+.angle-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 24px solid #535bf2;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #535bf2;
+  border-bottom: 20px solid transparent;
+  left: 1rem;
+  bottom: -1.8rem;
+  z-index: 1;
+}
+
+.angle-right:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 24px solid #57d34c;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #57d34c;
+  border-bottom: 20px solid transparent;
+  left: 14.8rem;
+  bottom: -1.8rem;
+  z-index: 1;
+  transform: scaleX(-1);
 }
 .other {
-  background-color: #57d34c95;
+  background-color: #57d34c;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -91,7 +119,15 @@ select:focus {
   display: block;
   font-size: 0.5rem;
   position: absolute;
-  bottom: 0;
+  bottom: 0.2rem;
+  right: 1rem;
+}
+.dateOther {
+  display: block;
+  font-size: 0.5rem;
+  position: absolute;
+  bottom: 0.2rem;
+  left: 1rem;
 }
 @media (prefers-color-scheme: light) {
   :root {

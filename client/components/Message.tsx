@@ -12,11 +12,17 @@ interface Props {
 const Message = ({ props, username }: Props) => {
   return (
     <div
-      className={username === props.author ? "mine message" : "other message"}
+      className={
+        username === props.author
+          ? "mine message angle-left "
+          : "other message angle-right"
+      }
     >
       <span className="author">{props.author}</span>
       <p className="dm">{props.message}</p>
-      <span className="date">{props.time}</span>
+      <span className={username === props.author ? "date" : "dateOther"}>
+        {props.time}
+      </span>
     </div>
   );
 };
