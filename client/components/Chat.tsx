@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Message from "./Message";
 type Props = {
   socket: any;
@@ -10,13 +10,17 @@ const Chat = ({ socket, userName, roomName }: Props) => {
   const [message, setMessage] = useState<string>("");
   const [output, setOutput] = useState<any[]>([]);
   const [currentUser, setCurrentUser] = useState("");
+  const inputBox = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     socket.on("message_received", (data: object) => {
       setOutput((prev: {}[]) => [...prev, data]);
     });
   }, [socket]);
 
-  const sendMessage = async () => {
+  const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (message.length > 1) {
       const messageContent = {
         room: roomName,
@@ -32,6 +36,9 @@ const Chat = ({ socket, userName, roomName }: Props) => {
       setOutput((prev: {}[]) => [...prev, messageContent]);
       await socket.emit("send_message", messageContent);
     }
+    if (inputBox.current) {
+      inputBox.current.value = "";
+    }
   };
   return (
     <main>
@@ -45,16 +52,22 @@ const Chat = ({ socket, userName, roomName }: Props) => {
             <Message key={`key${i}`} props={msg} username={userName} />
           ))}
       </section>
-      <section className="flex gap-1">
+      <form
+        className="flex gap-1"
+        onSubmit={e => {
+          sendMessage(e);
+        }}
+      >
         <input
           type="text"
           placeholder="Type here..."
           onChange={e => {
             setMessage(e.target.value);
           }}
+          ref={inputBox}
         />
-        <button onClick={sendMessage}>Send</button>
-      </section>
+        <button>Send</button>
+      </form>
     </main>
   );
 };
