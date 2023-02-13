@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Message from "./Message";
 type Props = {
   socket: any;
-  userName: String;
-  roomName: String;
+  userName: string;
+  roomName: string;
 };
 
 const Chat = ({ socket, userName, roomName }: Props) => {
@@ -12,7 +12,6 @@ const Chat = ({ socket, userName, roomName }: Props) => {
   const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     socket.on("message_received", (data: object) => {
-      console.log("data", data);
       setOutput((prev: {}[]) => [...prev, data]);
     });
   }, [socket]);
@@ -36,12 +35,14 @@ const Chat = ({ socket, userName, roomName }: Props) => {
   };
   return (
     <main>
-      <header>Chat</header>
+      <header>
+        Room <strong>{roomName && roomName}</strong>
+      </header>
       <br />
       <section className="outputSection">
         {output &&
           output.map((msg, i) => (
-            <Message key={`key${i}`} props={msg} user={currentUser} />
+            <Message key={`key${i}`} props={msg} username={userName} />
           ))}
       </section>
       <section className="flex gap-1">

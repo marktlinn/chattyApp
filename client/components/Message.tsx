@@ -7,13 +7,13 @@ interface Props {
     message: string;
     time: number;
   };
-  user: string;
+  username: string;
 }
-const Message = ({ props, user }: Props) => {
-  const username = props.author === user ? "me" : "other";
-  console.log(username);
+const Message = ({ props, username }: Props) => {
   return (
-    <div className={`${username === "me" ? "mine message" : "other message"}`}>
+    <div
+      className={username === props.author ? "mine message" : "other message"}
+    >
       <span className="author">{props.author}</span>
       <p className="dm">{props.message}</p>
       <span className="date">{props.time}</span>

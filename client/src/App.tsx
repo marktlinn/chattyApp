@@ -7,12 +7,11 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 const socket = io.connect("http://localhost:3000");
 function App() {
   const [userName, setUserName] = useState<string>("");
-  const [roomName, setRoomName] = useState<string>("");
+  const [roomName, setRoomName] = useState<string>("101");
   const Navigate = useNavigate();
   const joinRoom = () => {
     if (userName.length > 1 && roomName.length > 1) {
       socket.emit("join_room", roomName);
-      console.log(roomName);
       Navigate(`/room${roomName}`);
     }
   };
@@ -26,6 +25,7 @@ function App() {
               setUserName={setUserName}
               setRoomName={setRoomName}
               joinRoom={joinRoom}
+              roomName={roomName}
             />
           }
         />
