@@ -4,7 +4,7 @@ import Chat from "../components/Chat";
 import JoinRoom from "../components/JoinRoom";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect(`${import.meta.env.VITE_SERVER}`);
 function App() {
   const [userName, setUserName] = useState<string>("");
   const [roomName, setRoomName] = useState<string>("101");
